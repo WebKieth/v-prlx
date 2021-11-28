@@ -10,14 +10,11 @@ export default {
       bind (el, options) {
         window.addEventListener('scroll', () => {
           if (!el) return false
-          const coords = el.getBoundingClientRect()
-          const dh = window.innerHeight + coords.height
-          // on bottom from window
-          if (coords.y < dh && (coords.y + coords.height) > 0) {
+          requestAnimationFrame(() => {
             el.style.transform = `translateY(${
-              Math.abs(Math.floor(coords.y - dh) / (options.delimeter || 2))
+              Math.floor((window.pageYOffset - el.parentNode.offsetTop) / (options.value.delimeter || 2))
             }px)`
-          }
+          })
         })
       }
     })
